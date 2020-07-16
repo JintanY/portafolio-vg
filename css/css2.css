@@ -1,0 +1,102 @@
+@charset "utf-8";
+body {
+    width: 900px;
+    height: 1300px;
+    background-image: url(../Images/degradado.png);
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: auto;
+    background-repeat: repeat-x;
+    padding-top: 0px;
+    margin-top: 49px;
+}
+.img {
+    width: 300px;
+    height: 500px;
+    margin: auto;
+    object-fit: cover;
+}
+
+
+.varguy {
+    font-family: 'Oswald', sans-serif;
+    font-size: 51px;
+    font-style: normal;
+    font-variant: small-caps;
+    font-weight: lighter;
+    margin-right: auto;
+    width: 900px;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    margin-left: 10px;
+    color: #467487;
+}
+.bottones {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-variant: small-caps;
+    font-weight: lighter;
+    width: 900px;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    color: #467487;
+    text-align: center;
+    background-color: #DED4A8;
+    padding-right: 25px;
+    padding-bottom: 25px;
+    padding-left: 25px;
+}
+.texto {
+    font-family: 'Oswald', sans-serif;
+    font-size: 31px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: lighter;
+    width: 900px;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    color: #467487;
+    text-align: center;
+    background-color: #DED4A8;
+    padding-right: 25px;
+    padding-bottom: 25px;
+    padding-left: 25px;
+}
+.profile {
+    padding-top: 9px;
+    padding-right: 9px;
+    padding-bottom: 9px;
+    padding-left: 9px;
+    background-color: #FFFFFF;
+    margin-bottom: -15px;
+    margin-top: -33px;
+    margin-left: 25px;
+}
+
+}
+a:active {
+    color: #467487;
+    text-decoration: none;
+}
+a:link {
+    color: #467487;
+    text-decoration: none;
+}
+a:visited {
+    color: #467487;
+}
+
+
+a:hover {
+    color: #F1EEE3;
+    text-decoration: none;
+}
+div a .profile {
+    margin-left: -328px;
+}
+.texto2 {
+}

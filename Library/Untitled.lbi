@@ -1,0 +1,17 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">	
+<link href="../css/css.css" rel="stylesheet" type="text/css">
+<div><a href="../index.html"><img src="../Images/profile_picture.jpg" alt="" width="101" height="100" class="profile"/></a><span class="varguy"><a href="../index.html">Varguy</a></span></div>
+<br>
+<div><img src="../Images/line head.png" width="900" height="61" alt=""/></div>
+<br>
+<div><table width="900" border="0" cellpadding="4" cellspacing="15">
+  <tbody>
+    <tr class="bottones">
+      <td width="220"><a href="../me.html">About Me</a></td>
+      <td width="221"><a href="../portafolio.html">Portafolio</a></td>
+      <td width="221"><a href="../Shop.html">Shop</a></td>
+      <td width="220"><a href="../best.html">Best work</a></td>
+    </tr>
+  </tbody>
+</table>
+</div>

@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+<!-- TemplateParam name="line" type="boolean" value="true" -->
+<style type="text/css">
+a:link {
+    color: #577485;
+    text-decoration: none;
+}
+a:visited {
+    color: #577485;
+    text-decoration: none;
+}
+a:hover {
+    color: #577485;
+    text-decoration: none;
+}
+a:active {
+    color: #577485;
+    text-decoration: none;
+}
+</style>
+<head>
+<meta charset="utf-8">
+	<title>Documento sin título</title>
+<!-- TemplateBeginEditable name="doctitle" -->
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<link href="../css/css_shop.css" rel="stylesheet" type="text/css">
+<!-- TemplateParam name="hamburguesa" type="boolean" value="true" -->
+<!-- TemplateParam name="perfil" type="boolean" value="true" -->
+<!-- TemplateParam name="varguy" type="boolean" value="true" -->
+<!-- TemplateParam name="about" type="boolean" value="true" -->
+<!-- TemplateParam name="porta" type="boolean" value="true" -->
+<!-- TemplateParam name="shop" type="boolean" value="true" -->
+<!-- TemplateParam name="work" type="boolean" value="true" -->
+<!-- TemplateParam name="social" type="boolean" value="true" -->
+<!-- TemplateParam name="head" type="boolean" value="true" -->
+	
+<div><meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="css/css_shop.css" rel="stylesheet" type="text/css">
+    <script>
+        window.onload = function () {
+            // Variables
+            let baseDeDatos = [
+                {
+                    id: 1,
+                    nombre: 'Clouds',
+                    precio: 20,
+                    imagen: 'Images/Cuadradas/Clouds.jpg'
+                },
+                {
+                    id: 2,
+                    nombre: 'Mountain',
+                    precio: 20,
+                    imagen: 'Images/Cuadradas/Mountains.jpg'
+                },
+                {
+                    id: 3,
+                    nombre: 'White Cat',
+                    precio: 25,
+                    imagen: 'Images/Cuadradas/Whitecat.jpg'
+                },
+                {
+                    id: 4,
+                    nombre: 'Jellyfish',
+                    precio: 15,
+                    imagen: 'Images/Cuadradas/Jellyfish.jpg'
+                }
+
+            ]
+            let $items = document.querySelector('#items');
+            let carrito = [];
+            let total = 0;
+            let $carrito = document.querySelector('#carrito');
+            let $total = document.querySelector('#total');
+            // Funciones
+            function renderItems () {
+                for (let info of baseDeDatos) {
+                    // Estructura
+                    let miNodo = document.createElement('div');
+                    miNodo.classList.add('card', 'col-sm-4');
+                    // Body
+                    let miNodoCardBody = document.createElement('div');
+                    miNodoCardBody.classList.add('card-body');
+                    // Titulo
+                    let miNodoTitle = document.createElement('h5');
+                    miNodoTitle.classList.add('card-title');
+                    miNodoTitle.textContent = info['nombre'];
+                    // Imagen
+                    let miNodoImagen = document.createElement('img');
+                    miNodoImagen.classList.add('img-fluid');
+                    miNodoImagen.setAttribute('src', info['imagen']);
+                    // Precio
+                    let miNodoPrecio = document.createElement('p');
+                    miNodoPrecio.classList.add('card-text');
+                    miNodoPrecio.textContent = info['precio'] + '$';
+                    // Boton 
+                    let miNodoBoton = document.createElement('button');
+                    miNodoBoton.classList.add('btn', 'btn-primary');
+                    miNodoBoton.textContent = '+';
+                    miNodoBoton.setAttribute('marcador', info['id']);
+                    miNodoBoton.addEventListener('click', anyadirCarrito);
+                    // Insertamos
+                    miNodoCardBody.appendChild(miNodoImagen);
+                    miNodoCardBody.appendChild(miNodoTitle);
+                    miNodoCardBody.appendChild(miNodoPrecio);
+                    miNodoCardBody.appendChild(miNodoBoton);
+                    miNodo.appendChild(miNodoCardBody);
+                    $items.appendChild(miNodo);
+                }
+            }
+
+            function anyadirCarrito () {
+                // Anyadimos el Nodo a nuestro carrito
+                carrito.push(this.getAttribute('marcador'))
+                // Calculo el total
+                calcularTotal();
+                // Renderizamos el carrito 
+                renderizarCarrito();
+            }
+
+            function renderizarCarrito () {
+                // Vaciamos todo el html
+                $carrito.textContent = '';
+                // Quitamos los duplicados
+                let carritoSinDuplicados = [...new Set(carrito)];
+                // Generamos los Nodos a partir de carrito
+                carritoSinDuplicados.forEach(function (item, indice) {
+                    // Obtenemos el item que necesitamos de la variable base de datos
+                    let miItem = baseDeDatos.filter(function(itemBaseDatos) {
+                        return itemBaseDatos['id'] == item;
+                    });
+                    // Cuenta el número de veces que se repite el producto
+                    let numeroUnidadesItem = carrito.reduce(function (total, itemId) {
+                        return itemId === item ? total += 1 : total;
+                    }, 0);
+                    // Creamos el nodo del item del carrito
+                    let miNodo = document.createElement('li');
+                    miNodo.classList.add('list-group-item', 'text-right', 'mx-2');
+                    miNodo.textContent = `${numeroUnidadesItem} x ${miItem[0]['nombre']} - ${miItem[0]['precio']}€`;
+                    // Boton de borrar
+                    let miBoton = document.createElement('button');
+                    miBoton.classList.add('btn', 'btn-danger', 'mx-5');
+                    miBoton.textContent = 'X';
+                    miBoton.style.marginLeft = '1rem';
+                    miBoton.setAttribute('item', item);
+                    miBoton.addEventListener('click', borrarItemCarrito);
+                    // Mezclamos nodos
+                    miNodo.appendChild(miBoton);
+                    $carrito.appendChild(miNodo);
+                })
+            }
+
+            function borrarItemCarrito () {
+                console.log()
+                // Obtenemos el producto ID que hay en el boton pulsado
+                let id = this.getAttribute('item');
+                // Borramos todos los productos
+                carrito = carrito.filter(function (carritoId) {
+                    return carritoId !== id;
+                });
+                // volvemos a renderizar
+                renderizarCarrito();
+                // Calculamos de nuevo el precio
+                calcularTotal();
+            }
+
+            function calcularTotal () {
+                // Limpiamos precio anterior
+                total = 0;
+                // Recorremos el array del carrito
+                for (let item of carrito) {
+                    // De cada elemento obtenemos su precio
+                    let miItem = baseDeDatos.filter(function(itemBaseDatos) {
+                        return itemBaseDatos['id'] == item;
+                    });
+                    total = total + miItem[0]['precio'];
+                }
+                // Formateamos el total para que solo tenga dos decimales
+                let totalDosDecimales = total.toFixed(2);
+                // Renderizamos el precio en el HTML
+                $total.textContent = totalDosDecimales;
+            }
+            // Eventos
+
+            // Inicio
+            renderItems();
+        } 
+    </script>
+</div>
+</head>
+
+<body>
+<!-- TemplateBeginIf cond="head" -->
+<div><table width="1049" border="0">
+  <tbody>
+    <tr>
+      <td width="139"><!-- TemplateBeginIf cond="perfil" --><a href="../index_f.html"><img src="../Images/profile_picture.jpg" alt="" width="276" height="275" class="profile"/></a><!-- TemplateEndIf --></td>
+      <td width="900" align="left" class="varguy"><!-- TemplateBeginIf cond="_document['varguy']" --><a href="../index_f.html">Varguy</a><!-- TemplateEndIf --></td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+<div><!-- TemplateBeginIf cond="_document['line']" --><img src="../Images/line head.png" alt="" width="743" height="61" class="line"/><!-- TemplateEndIf --></div>
+	<div>
+	<button id="menu">menu</button>
+<nav id="superior">
+	<ul>
+		<li><!-- TemplateBeginIf cond="about" --><a href="#">About me</a><!-- TemplateEndIf --></li>
+		<li><!-- TemplateBeginIf cond="porta" --><a href="#">Portafolio</a><!-- TemplateEndIf --></li>
+		<li><!-- TemplateBeginIf cond="shop" --><a href="../tienda.html">Shop</a><!-- TemplateEndIf --></li>
+		<li><!-- TemplateBeginIf cond="work" --><a href="#">Work I did</a><!-- TemplateEndIf --></li>
+		<li><!-- TemplateBeginIf cond="social" --><a href="#">Social Networks</a><!-- TemplateEndIf --></li>
+	</ul>
+</nav>
+</div>
+	<div><!-- TemplateBeginEditable name="contenido" -->contenido<!-- TemplateEndEditable --></div>
+</body>
+</html>
